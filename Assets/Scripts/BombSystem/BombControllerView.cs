@@ -14,7 +14,7 @@ namespace BombSystem{
         }
         public void ActivateBomb()
         {
-            Invoke("Explode", .4f);
+            Invoke("Explode", 3f);
         }
         void Explode()
         {
