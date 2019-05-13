@@ -34,6 +34,10 @@ namespace CharacterSystem.Enemy
                 GetNextCell();
             }
         }
+        public void DestroyEnemy()
+        {
+            Destroy(gameObject);
+        }
         public void SetManager(EnemyManager manager, MapManager mapManager)
         {
             this.mapManager = mapManager;

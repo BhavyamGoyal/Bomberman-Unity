@@ -15,6 +15,10 @@ namespace CharacterSystem.Player
         {
             rb = GetComponent<Rigidbody2D>();
         }
+        public void DestroyPlayer()
+        {
+            Destroy(gameObject);
+        }
         public void SetBombManager(BombManager bombManager)
         {
             this.bombManager = bombManager;

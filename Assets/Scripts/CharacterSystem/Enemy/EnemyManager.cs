@@ -14,6 +14,7 @@ namespace CharacterSystem.Enemy
         {
             this.mapManager = mapManager;
             this.enemyPrefab = enemyPrefab;
+            GameManager.Instance.onGameReset += Reset;
         }
         public void SpawnEnemies(int numberOfEnemies)
         {
@@ -21,6 +22,14 @@ namespace CharacterSystem.Enemy
             {
                 SpawnEnemy();
             }
+        }
+        public void Reset()
+        {
+            for(int i = 0; i < enemies.Count; i++)
+            {
+                enemies[i].DestroyEnemy();
+            }
+            enemies.Clear();
         }
         public void SpawnEnemy()
         {

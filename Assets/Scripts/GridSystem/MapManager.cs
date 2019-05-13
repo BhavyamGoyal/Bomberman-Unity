@@ -1,4 +1,5 @@
-﻿using InputSystem;
+﻿using Common;
+using InputSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,7 @@ namespace GridSystem
             this.destructableTile = destructableTile;
             this.gameMap = gameMap;
             generator = new MapGenerator(this);
+            GameManager.Instance.onGameReset += Reset;
             Debug.Log("[MapManager]Manager Created");
         }
         public Vector3 GetSpawnPoint()
@@ -45,6 +47,20 @@ namespace GridSystem
                 freeCells.Add(gameMap.GetCellCenterWorld(cellPos + new Vector3Int(0, -1, 0)));
             }
             return freeCells;
+        }
+        public void Reset()
+        {
+            for (int i = 0; i < 15; i++)
+            {
+                for (int j = 0; j < 11; j++)
+                {
+                    Vector3Int cell = new Vector3Int(i - 10, j - 4, 0);
+                    if (gameMap.GetTile(cell)==destructableTile)
+                    {
+                        gameMap.SetTile(cell, null);
+                    }
+                }
+            }
         }
         public void GenerateMap()
         {
@@ -86,7 +102,7 @@ namespace GridSystem
             {
                 Vector3 pos = gameMap.GetCellCenterWorld(cell);
                 GameObject explode=GameObject.Instantiate(explosion, pos, Quaternion.identity);
-                GameObject.Destroy(explode, .4f);
+                GameObject.Destroy(explode, .2f);
                 if (tile == destructableTile)
                 {
                     gameMap.SetTile(cell, null);
