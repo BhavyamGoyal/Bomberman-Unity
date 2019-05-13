@@ -61,7 +61,7 @@ namespace Common
         public void StartGame()
         {
             mapManager.GenerateMap();
-            enemyManager.SpawnEnemies(1);
+            enemyManager.SpawnEnemies(5);
         }
         public void GameOver(string message)
         {

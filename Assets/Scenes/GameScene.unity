@@ -4078,6 +4078,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80d5bf5a2fe0e5b40ab5b390eec191ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playButon: {fileID: 1657603351}
   enemyPrefab: {fileID: 8322007224731624259, guid: a8098f02d85adc443b164a9fecbd18dd,
     type: 3}
   popUp: {fileID: 1861338647}

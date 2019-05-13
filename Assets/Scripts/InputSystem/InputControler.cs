@@ -12,11 +12,11 @@ namespace InputSystem
         Vector3 speed = new Vector3(0, 0, 0);
         private void OnEnable()
         {
-            GameManager.Instance.onGameReset += Reset;   
+            GameManager.Instance.onGameReset += Reset;
         }
         private void Reset()
         {
-            player = null;  
+            player = null;
         }
         public void SetPlayer(PlayerControllerView player)
         {
@@ -27,35 +27,36 @@ namespace InputSystem
         void Update()
         {
 
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                    player.FireBomb();
-            }
-            if (Input.GetAxis("Horizontal") > 0.2)
-            {
-                speed.x = 1;
-            }else if(Input.GetAxis("Horizontal") < -0.2)
-            {
-                speed.x = -1;
-            }
-            else
-            {
-                speed.x = 0;
-            }
-            if (Input.GetAxis("Vertical") > 0.2)
-            {
-                speed.y = 1;
-            }
-            else if (Input.GetAxis("Vertical") < -0.2)
-            {
-                speed.y = -1;
-            }
-            else
-            {
-                speed.y = 0;
-            }
             if (player != null)
             {
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    player.FireBomb();
+                }
+                if (Input.GetAxis("Horizontal") > 0.2)
+                {
+                    speed.x = 1;
+                }
+                else if (Input.GetAxis("Horizontal") < -0.2)
+                {
+                    speed.x = -1;
+                }
+                else
+                {
+                    speed.x = 0;
+                }
+                if (Input.GetAxis("Vertical") > 0.2)
+                {
+                    speed.y = 1;
+                }
+                else if (Input.GetAxis("Vertical") < -0.2)
+                {
+                    speed.y = -1;
+                }
+                else
+                {
+                    speed.y = 0;
+                }
                 player.SetVelocity(speed);
             }
 
