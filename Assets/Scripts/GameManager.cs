@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using UISystem;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
+
 namespace Common
 {
     public class GameManager : Singleton<GameManager>
@@ -17,6 +19,7 @@ namespace Common
         MapManager mapManager;
         EnemyManager enemyManager;
         PlayerControllerView player;
+        [SerializeField] Button playButon;
         [SerializeField]EnemyControllerView enemyPrefab;
         [SerializeField]PopUpController popUp;
         [SerializeField]PlayerControllerView playerPrefab;
@@ -32,15 +35,23 @@ namespace Common
         public override void OnInitialize()
         {
             base.OnInitialize();
-            StartGame();
+            mapManager = new MapManager(gameGridMap, destructableTile, explosion);
+            bombManager = new BombManager(bomb, mapManager);
+            enemyManager = new EnemyManager(enemyPrefab, mapManager);
+            uiManager = new UIManager(popUp, playButon);
         }
         public void Reset()
         {
             onGameReset.Invoke();
             player.DestroyPlayer();
+            StartPlaying();    
+        }
+        public void StartPlaying()
+        {
             StartGame();
             SpawnPlayer();
         }
+
         void SpawnPlayer()
         {
             player = Instantiate(playerPrefab.gameObject, mapManager.GetSpawnPoint(), Quaternion.identity).GetComponent<PlayerControllerView>();
@@ -49,10 +60,6 @@ namespace Common
         }
         public void StartGame()
         {
-            mapManager = new MapManager(gameGridMap, destructableTile, explosion);
-            bombManager = new BombManager(bomb, mapManager);
-            enemyManager = new EnemyManager(enemyPrefab, mapManager);
-            uiManager = new UIManager(popUp);
             mapManager.GenerateMap();
             enemyManager.SpawnEnemies(1);
         }
@@ -60,10 +67,6 @@ namespace Common
         {
             Debug.Log("<color=red>" + message + "</color>");
             uiManager.GameOver(message);
-        }
-        public void Start()
-        {
-            SpawnPlayer();   
         }
         public PlayerControllerView GetPlayer()
         {

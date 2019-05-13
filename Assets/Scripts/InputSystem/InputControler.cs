@@ -10,6 +10,14 @@ namespace InputSystem
         // Start is called before the first frame update
         PlayerControllerView player;
         Vector3 speed = new Vector3(0, 0, 0);
+        private void OnEnable()
+        {
+            GameManager.Instance.onGameReset += Reset;   
+        }
+        private void Reset()
+        {
+            player = null;  
+        }
         public void SetPlayer(PlayerControllerView player)
         {
             this.player = player;
@@ -46,7 +54,10 @@ namespace InputSystem
             {
                 speed.y = 0;
             }
-            player.SetVelocity(speed);
+            if (player != null)
+            {
+                player.SetVelocity(speed);
+            }
 
         }
     }
