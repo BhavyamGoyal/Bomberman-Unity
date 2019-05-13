@@ -9,7 +9,7 @@ namespace CharacterSystem.Player
     {
         BombManager bombManager;
         Rigidbody2D rb;
-        int speed = 10;
+        int speed = 5;
         Vector3 velocity = new Vector3(0, 0, 0);
         private void Start()
         {
@@ -29,6 +29,19 @@ namespace CharacterSystem.Player
         }
         public void SetVelocity(Vector3 velocity)
         {
+            if (velocity.x >0)
+            {
+                transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
+            }else if (velocity.x < 0)
+            {
+                transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
+            }else if (velocity.y < 0)
+            {
+                transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
+            }else if (velocity.y > 0)
+            {
+                transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+            }
             this.velocity = velocity;
         }
 
@@ -40,7 +53,7 @@ namespace CharacterSystem.Player
         {
             if (collision.gameObject.tag == "explosion" || collision.gameObject.tag == "enemy")
             {
-                this.gameObject.SetActive(false);
+                Destroy(gameObject);
                 GameManager.Instance.GameOver("Player Died");
             }
         }

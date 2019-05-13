@@ -68,7 +68,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -4925448337817528618, guid: 23b70cb6eeaad0c468111b3e9acfa103,
+  m_Sprite: {fileID: -3955315786042260600, guid: 23b70cb6eeaad0c468111b3e9acfa103,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -91,10 +91,10 @@ GameObject:
   - component: {fileID: 1207929926225444967}
   - component: {fileID: 5617483476847625940}
   - component: {fileID: 4696539740006811084}
-  - component: {fileID: 3005075356150457720}
+  - component: {fileID: 6538557004747426983}
   m_Layer: 0
-  m_Name: Player
-  m_TagString: Untagged
+  m_Name: ENEMY1
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,7 +124,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -151,7 +151,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &3005075356150457720
+--- !u!114 &6538557004747426983
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,6 +160,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6893575465802916091}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89891349c2955f847beeb67843609139, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f9626be293503b418a5c023bce45381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  freeCells: []
+  speed: 2

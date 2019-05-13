@@ -9,12 +9,14 @@ namespace CharacterSystem.Enemy
     {
         EnemyControllerView enemyPrefab;
         MapManager mapManager;
+        GameManager gameManager;
         List<EnemyControllerView> enemies = new List<EnemyControllerView>();
         public EnemyManager(EnemyControllerView enemyPrefab,MapManager mapManager)
         {
             this.mapManager = mapManager;
             this.enemyPrefab = enemyPrefab;
-            GameManager.Instance.onGameReset += Reset;
+            gameManager=GameManager.Instance;
+            gameManager.onGameReset += Reset;
         }
         public void SpawnEnemies(int numberOfEnemies)
         {
@@ -40,9 +42,10 @@ namespace CharacterSystem.Enemy
         public void DestroyEnemy(EnemyControllerView enemy)
         {
             enemies.Remove(enemy);
+            gameManager.UpdateScore(5);
             if (enemies.Count == 0)
             {
-                GameManager.Instance.GameOver("You Won");
+                gameManager.GameOver("You Won");
             }
         }
 

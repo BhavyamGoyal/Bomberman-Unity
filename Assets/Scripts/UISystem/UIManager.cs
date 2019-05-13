@@ -10,15 +10,22 @@ namespace UISystem
 
         PopUpController popUp;
         Button playButton;
+        GameUIController gameUI;
         // Start is called before the first frame update
-        public UIManager(PopUpController popUp, Button playButton)
+        public UIManager(GameUIController gameUI,PopUpController popUp, Button playButton)
         {
+            this.gameUI=gameUI;
             this.playButton = playButton;
             this.popUp = popUp;
             this.playButton.onClick.AddListener(StartGame);
             GameManager.Instance.onGameReset += Reset;
             popUp.Hide();
+            gameUI.HideText();
             popUp.SetManager(this);
+        }
+        public void UpdateScore(int score)
+        {
+            gameUI.UpdateScoreText(score);
         }
         ~UIManager()
         {
@@ -27,11 +34,12 @@ namespace UISystem
         private void StartGame()
         {
             GameManager.Instance.StartPlaying();
+            gameUI.ShowText();
             playButton.gameObject.SetActive(false);
         }
-        public void GameOver(string message)
+        public void GameOver(string message,int score)
         {
-            popUp.ShowPopUp(message);
+            popUp.ShowPopUp(message, score);
         }
         public void Reset()
         {

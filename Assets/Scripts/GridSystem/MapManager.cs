@@ -115,7 +115,7 @@ namespace GridSystem
             Vector3Int cellpos = new Vector3Int(Random.Range(-10, 5), Random.Range(-4, 6), 0);
             while(gameMap.GetTile(cellpos)!= destructableTile)
             {
-                cellpos = new Vector3Int(Random.Range(-10, 5), Random.Range(-4, 6), 0);
+                cellpos = new Vector3Int(Random.Range(-10, 4), Random.Range(-3, 6), 0);
             }
             gameMap.SetTile(cellpos, null);
             return gameMap.GetCellCenterLocal(cellpos);

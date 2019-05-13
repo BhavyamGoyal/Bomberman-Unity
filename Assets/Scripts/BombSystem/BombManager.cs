@@ -1,4 +1,5 @@
-﻿using GridSystem;
+﻿using Common;
+using GridSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,14 @@ namespace BombSystem
             bombInGame = GameObject.Instantiate(bomb.gameObject).GetComponent<BombControllerView>();
             bombInGame.SetBombManager(this);
             bombInGame.gameObject.SetActive(false);
+            GameManager.Instance.onGameReset += Reset;
+        }
+        public void Reset()
+        {
+            if (isBombPresent())
+            {
+                bombInGame.HideBomb();
+            }
         }
         public bool isBombPresent()
         {
@@ -25,7 +34,6 @@ namespace BombSystem
             if (!isBombPresent())
             {
                 Debug.Log("[BombManager] bomb Launched");
-                bombInGame.gameObject.SetActive(true);
                 bombInGame.SetCell(bombPos);
                 bombInGame.ActivateBomb();
             }

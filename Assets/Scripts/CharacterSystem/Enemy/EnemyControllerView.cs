@@ -13,7 +13,7 @@ namespace CharacterSystem.Enemy
         MapManager mapManager;
         public List<Vector3> freeCells;
         Vector3 destination, startPosition;
-        public float speed = 2f;
+        public float speed = 1f;
         private float startTime;
         private float journeyLength;
         bool islocked = true;
@@ -88,8 +88,15 @@ namespace CharacterSystem.Enemy
             }
             else { destination = this.transform.position; }
             startTime = Time.time;
+            LookAt(this.transform.position, destination);
             journeyLength = Vector3.Distance(startPosition, destination);
         }
+            void LookAt(Vector2 start, Vector2 end)
+            {
+                Vector2 diff = end - start;
+                float zRot = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(0, 0, zRot-90);
+            }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {

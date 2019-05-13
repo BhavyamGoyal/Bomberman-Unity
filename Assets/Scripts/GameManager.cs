@@ -20,6 +20,7 @@ namespace Common
         EnemyManager enemyManager;
         PlayerControllerView player;
         [SerializeField] Button playButon;
+        [SerializeField] GameUIController gameUIController;
         [SerializeField]EnemyControllerView enemyPrefab;
         [SerializeField]PopUpController popUp;
         [SerializeField]PlayerControllerView playerPrefab;
@@ -30,6 +31,7 @@ namespace Common
         [SerializeField] GameObject explosion;
         BombManager bombManager;
         public event Action onGameReset;
+        int score = 0;
 
         // Start is called before the first frame update
         public override void OnInitialize()
@@ -38,12 +40,13 @@ namespace Common
             mapManager = new MapManager(gameGridMap, destructableTile, explosion);
             bombManager = new BombManager(bomb, mapManager);
             enemyManager = new EnemyManager(enemyPrefab, mapManager);
-            uiManager = new UIManager(popUp, playButon);
+            uiManager = new UIManager(gameUIController,popUp, playButon);
         }
         public void Reset()
         {
+            score = 0;
+            UpdateScore(0);
             onGameReset.Invoke();
-            player.DestroyPlayer();
             StartPlaying();    
         }
         public void StartPlaying()
@@ -66,7 +69,7 @@ namespace Common
         public void GameOver(string message)
         {
             Debug.Log("<color=red>" + message + "</color>");
-            uiManager.GameOver(message);
+            uiManager.GameOver(message, score);
         }
         public PlayerControllerView GetPlayer()
         {
@@ -76,6 +79,11 @@ namespace Common
         {
             Debug.Log("Getting bomb manager");
             return bombManager;
+        }
+        public void UpdateScore(int points)
+        {
+             this.score+= points;
+             uiManager.UpdateScore(score);
         }
         public MapManager GetMapManager()
         {

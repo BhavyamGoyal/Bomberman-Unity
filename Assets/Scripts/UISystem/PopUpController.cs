@@ -8,10 +8,12 @@ namespace UISystem
     public class PopUpController : MonoBehaviour
     {
         [SerializeField] Text message;
+        [SerializeField] Text scoreText;
         [SerializeField] Button restart;
         UIManager uiManager;
-        public void ShowPopUp(string message)
+        public void ShowPopUp(string message, int score)
         {
+            scoreText.text = "SCORE: " + score;
             gameObject.SetActive(true);
             this.message.text = message;
         }
