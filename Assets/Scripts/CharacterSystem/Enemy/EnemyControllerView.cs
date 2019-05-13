@@ -108,8 +108,11 @@ namespace CharacterSystem.Enemy
             else if (collision.gameObject.tag == "bomb")
             {
                 freeCells.Remove(destination);
-                destination = freeCells[UnityEngine.Random.Range(0, freeCells.Count)];
-
+                if (freeCells.Count > 0)
+                {
+                    destination = freeCells[UnityEngine.Random.Range(0, freeCells.Count)];
+                    destination = mapManager.GetCellPos(transform.position);
+                }
             }
 
         }
