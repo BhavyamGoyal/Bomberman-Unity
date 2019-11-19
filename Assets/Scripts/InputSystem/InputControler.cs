@@ -3,10 +3,14 @@ using Common;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 namespace InputSystem
 {
     public class InputControler : MonoBehaviour
     {
+        FloatingJoystick JoyStick;
+        Button fire_Bomb=null;
         // Start is called before the first frame update
         PlayerControllerView player;
         Vector3 speed = new Vector3(0, 0, 0);
@@ -18,9 +22,21 @@ namespace InputSystem
         {
             player = null;
         }
-        public void SetPlayer(PlayerControllerView player)
+        public void SetUpInputController(PlayerControllerView player, FloatingJoystick JoyStick,Button fire_Bomb)
         {
+            if (this.fire_Bomb == null)
+            {
+                this.fire_Bomb = fire_Bomb;
+                this.fire_Bomb.onClick.AddListener(FireBomb);
+            }
+            this.JoyStick = JoyStick;
             this.player = player;
+        }
+
+        public void FireBomb()
+        {
+            Debug.Log("bomb firing");
+            player.FireBomb();
         }
 
         // Update is called once per frame
@@ -29,15 +45,11 @@ namespace InputSystem
 
             if (player != null)
             {
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    player.FireBomb();
-                }
-                if (Input.GetAxis("Horizontal") > 0.2)
+                if (JoyStick.Horizontal > 0.5)
                 {
                     speed.x = 1;
                 }
-                else if (Input.GetAxis("Horizontal") < -0.2)
+                else if (JoyStick.Horizontal < -0.5)
                 {
                     speed.x = -1;
                 }
@@ -45,11 +57,11 @@ namespace InputSystem
                 {
                     speed.x = 0;
                 }
-                if (Input.GetAxis("Vertical") > 0.2)
+                if (JoyStick.Vertical > 0.5)
                 {
                     speed.y = 1;
                 }
-                else if (Input.GetAxis("Vertical") < -0.2)
+                else if (JoyStick.Vertical < -0.5)
                 {
                     speed.y = -1;
                 }

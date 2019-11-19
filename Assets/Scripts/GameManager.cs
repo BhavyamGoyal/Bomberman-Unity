@@ -15,6 +15,8 @@ namespace Common
 {
     public class GameManager : Singleton<GameManager>
     {
+        [SerializeField] FloatingJoystick joyStick;
+        [SerializeField] Button fireBomb;
         UIManager uiManager;
         MapManager mapManager;
         EnemyManager enemyManager;
@@ -40,7 +42,7 @@ namespace Common
             mapManager = new MapManager(gameGridMap, destructableTile, explosion);
             bombManager = new BombManager(bomb, mapManager);
             enemyManager = new EnemyManager(enemyPrefab, mapManager);
-            uiManager = new UIManager(gameUIController,popUp, playButon);
+            uiManager = new UIManager(gameUIController,popUp, playButon,joyStick,fireBomb);
         }
         public void Reset()
         {
@@ -59,10 +61,11 @@ namespace Common
         {
             player = Instantiate(playerPrefab.gameObject, mapManager.GetSpawnPoint(), Quaternion.identity).GetComponent<PlayerControllerView>();
             player.SetBombManager(bombManager);
-            inputController.SetPlayer(player);
+            inputController.SetUpInputController(player,joyStick,fireBomb);
         }
         public void StartGame()
         {
+            uiManager.StartGameUI();
             mapManager.GenerateMap();
             enemyManager.SpawnEnemies(5);
         }
